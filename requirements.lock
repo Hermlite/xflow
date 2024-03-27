@@ -10,5 +10,7 @@
 -e file:.
 loguru==0.7.2
     # via xflow
+pyyaml==6.0.1
+    # via xflow
 tinydb==4.8.0
     # via xflow

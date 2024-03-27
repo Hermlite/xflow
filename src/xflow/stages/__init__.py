@@ -10,6 +10,6 @@ STAGES: t.Dict[str, "BaseStage"] = {}
 
 
 def register(cls):
-    logger.info(f"register {cls} to {cls.name}")
+    logger.debug(f"register {cls} to {cls.name}")
     STAGES[cls.name] = cls()
     return cls

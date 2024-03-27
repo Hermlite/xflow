@@ -15,6 +15,8 @@ class DB:
 
     def init(self):
         self.root_path.mkdir(exist_ok=True)
+        if len(self.stage_names) == 1:
+            return
         for stage_name in self.stage_names:
             db_path = self.root_path / f"{stage_name}.json"
             if not db_path.exists():

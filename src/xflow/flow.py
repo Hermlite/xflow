@@ -1,4 +1,3 @@
-import typing as t
 from pathlib import Path
 
 from loguru import logger
@@ -11,7 +10,7 @@ from .stages import STAGES
 
 
 class Flow:
-    def __init__(self, workpath: Path, entry: t.Type[BaseStage]) -> None:
+    def __init__(self, workpath: Path, entry: BaseStage) -> None:
         self.workpath = workpath
         self.entry = entry
         self.stage_names = []
@@ -39,5 +38,5 @@ class Flow:
 
             if stage_name == self.entry.name:
                 logger.info(f"XFlow running by entry Stage[{self.entry.name}]")
-                self.entry().run()
+                self.entry.run()
                 break

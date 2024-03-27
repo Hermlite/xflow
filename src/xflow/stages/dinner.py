@@ -7,6 +7,3 @@ from ..stages import register
 class Dinner(BaseStage):
     name = "dinner"
     features = [Sport()]
-
-    def completed(self):
-        pass

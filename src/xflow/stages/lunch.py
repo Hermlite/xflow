@@ -8,6 +8,3 @@ from ..stages import register
 class Lunch(BaseStage):
     name = "lunch"
     features = [Cook(), Eat()]
-
-    def completed(self):
-        pass

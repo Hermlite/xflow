@@ -20,4 +20,4 @@ def register(cls):
 for f in pathlib.Path(__file__).parent.glob("*.py"):
     if f.name == "__init__.py":
         continue
-    importlib.import_module(f".{f.stem}", package="xflow.stages")
+    importlib.import_module(f"xflow.stages.{f.stem}")

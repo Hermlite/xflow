@@ -14,7 +14,6 @@ class Flow:
         self.workpath = workpath
         self.entry = entry
         self.stage_names = []
-        self.db: DB = None
 
     def run(self):
         self.stage_names = StageGraph.get_node_chain(self.entry.name)
@@ -23,7 +22,7 @@ class Flow:
 
         db_path = self.workpath / "db"
         db_path.mkdir(exist_ok=True)
-        self.db = DB(db_path, self.stage_names)
+        DB.init(db_path, self.stage_names)
 
         depend = None
         for stage_name in self.stage_names:

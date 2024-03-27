@@ -16,3 +16,7 @@ class XFlowException(BaseXFlowException):
 
 class XFlowDBException(BaseXFlowException):
     """XFlow DB error"""
+
+
+class XFlowConfigException(BaseXFlowException):
+    """XFlow config error"""

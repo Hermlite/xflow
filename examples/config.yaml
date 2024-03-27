@@ -1,1 +1,7 @@
+graph:
+  breakfast:
+    - lunch
+    - dinner
+  lunch:
+    - dinner
 workpath: "./xflow-workpath-demo"

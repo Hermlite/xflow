@@ -6,20 +6,10 @@ from loguru import logger
 
 from .config import Config
 from .flow import Flow
-from .graph import StageGraph
 from .stages import STAGES
-from .stages.breakfast import Breakfast
-from .stages.dinner import Dinner
-from .stages.lunch import Lunch
 
 logger.remove()
 logger.add(sys.stderr, level="DEBUG")
-
-
-def demo():
-    StageGraph.add_edge(Breakfast.name, Lunch.name)
-    StageGraph.add_edge(Breakfast.name, Dinner.name)
-    logger.debug(f"Graph is {StageGraph.GRAPH}")
 
 
 def cli():
@@ -32,7 +22,5 @@ def cli():
     args = parser.parse_args()
 
     Config.from_yaml(args.config)
-
-    demo()
 
     Flow(Config.workpath, STAGES[args.stage]).run()

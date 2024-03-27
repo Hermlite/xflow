@@ -1,7 +1,7 @@
-from xflow.base import BaseStage
-from xflow.features.cook import Cook
-from xflow.features.eat import Eat
-from xflow.stages import register
+from ..base import BaseStage
+from ..features.cook import Cook
+from ..features.eat import Eat
+from ..stages import register
 
 
 @register
@@ -10,4 +10,4 @@ class Lunch(BaseStage):
     features = [Cook(), Eat()]
 
     def completed(self):
-        return False
+        pass

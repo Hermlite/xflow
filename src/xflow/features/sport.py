@@ -1,11 +1,13 @@
-from xflow.base import BaseFeature
+from loguru import logger
+
+from ..base import BaseFeature
 
 
 class Sport(BaseFeature):
     name = "sport"
 
     def check(self):
-        return True
+        pass
 
     def run(self):
-        print(f"{self.name} running")
+        logger.info(f"{self.name} running")

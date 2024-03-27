@@ -1,42 +1,43 @@
 import typing as t
+from pathlib import Path
 
-from xflow.base import BaseStage
-from xflow.exceptions import XFlowException
-from xflow.graph import StageGraph
-from xflow.stages import STAGES
+from loguru import logger
+
+from .base import BaseStage
+from .db import DB
+from .exceptions import XFlowException
+from .graph import StageGraph
+from .stages import STAGES
 
 
 class Flow:
-    def __init__(self, entry: t.Type[BaseStage]) -> None:
+    def __init__(self, workpath: Path, entry: t.Type[BaseStage]) -> None:
+        self.workpath = workpath
         self.entry = entry
         self.stage_names = []
+        self.db: DB = None
 
     def run(self):
-        print(f"Flow start run by entry Stage[{self.entry.name}]")
-        self.init()
-        self.check()
-        self.start()
-
-    def start(self):
-        if not self.entry:
+        self.stage_names = StageGraph.get_node_chain(self.entry.name)
+        if not self.stage_names:
             raise XFlowException(f"Not found stage link by Stage[{self.entry.name}]")
 
-        for stage_name in self.stage_names:
-            STAGES[stage_name].run()
+        db_path = self.workpath / "db"
+        db_path.mkdir(exist_ok=True)
+        self.db = DB(db_path, self.stage_names)
 
-    def check(self):
-        self.check_stage_completed()
-
-    def check_stage_completed(self):
-        """Check link stage completed"""
+        depend = None
         for stage_name in self.stage_names:
+            if stage_name not in STAGES:
+                raise XFlowException(f"Stage[{stage_name}] not exists")
+
+            current_stage = STAGES[stage_name]
+            if depend:
+                current_stage.depend = depend
+            else:
+                depend = current_stage
+
             if stage_name == self.entry.name:
+                logger.info(f"XFlow running by entry Stage[{self.entry.name}]")
+                self.entry().run()
                 break
-            if not STAGES[stage_name].completed():
-                raise XFlowException(f"Stage[{stage_name} not completed]")
-
-    def init(self):
-        self.init_stage_names()
-
-    def init_stage_names(self):
-        self.stage_names = StageGraph.get_node_chain(self.entry.name)

@@ -1,3 +1,3 @@
-from xflow.cli import cli
+from .main import cli
 
 cli()

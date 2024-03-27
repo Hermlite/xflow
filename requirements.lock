@@ -8,3 +8,7 @@
 #   with-sources: false
 
 -e file:.
+loguru==0.7.2
+    # via xflow
+tinydb==4.8.0
+    # via xflow

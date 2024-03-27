@@ -1,6 +1,6 @@
-from xflow.base import BaseStage
-from xflow.features.sport import Sport
-from xflow.stages import register
+from ..base import BaseStage
+from ..features.sport import Sport
+from ..stages import register
 
 
 @register
@@ -9,4 +9,4 @@ class Dinner(BaseStage):
     features = [Sport()]
 
     def completed(self):
-        return True
+        pass

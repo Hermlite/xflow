@@ -1,3 +1,4 @@
+from loguru import logger
 from xflow.base import BaseFeature
 
 
@@ -5,7 +6,7 @@ class Cook(BaseFeature):
     name = "cook"
 
     def check(self):
-        return True
+        pass
 
     def run(self):
-        print(f"{self.name} running")
+        logger.info(f"{self.name} running")

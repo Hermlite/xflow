@@ -12,3 +12,7 @@ class XFlowStageError(BaseXFlowException):
 
 class XFlowException(BaseXFlowException):
     """XFlow run error"""
+
+
+class XFlowDBException(BaseXFlowException):
+    """XFlow DB error"""
